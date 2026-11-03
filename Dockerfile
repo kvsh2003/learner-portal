@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install -y \
 # Install Composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Enable Apache rewrite module for Laravel routing
-RUN a2enmod rewrite
+# Enable Apache rewrite module and ensure ONLY mpm_prefork is loaded
+RUN a2enmod rewrite \
+    && a2dismod mpm_event mpm_worker 2>/dev/null || true \
+    && a2enmod mpm_prefork
 
 WORKDIR /var/www/html
 
@@ -37,6 +39,10 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 # Set permissions for storage and bootstrap cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
+# Copy entrypoint script and set permissions
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
