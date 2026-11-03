@@ -60,6 +60,7 @@ jobs:
         run: |
           docker run --rm \
             -e APP_ENV=testing \
+            -e APP_KEY="base64:YPa+x0yUi4SESDW3J3noi8oPTTlIwnz98bUjK8B/BMM=" \
             -e DB_CONNECTION=sqlite \
             -e DB_DATABASE=:memory: \
             laravel-ci:${{ github.sha }} \

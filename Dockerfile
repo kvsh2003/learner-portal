@@ -24,6 +24,9 @@ WORKDIR /var/www/html
 # Copy application code
 COPY . .
 
+# Ensure .env exists in container from example
+RUN cp .env.example .env
+
 # Install PHP dependencies inside container
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 
