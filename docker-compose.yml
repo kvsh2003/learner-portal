@@ -1,7 +1,8 @@
 services:
   app:
-    build: .
+    image: dvish2003/learner-api:latest
     container_name: learner-api
+    pull_policy: always
     ports:
       - "8000:80"
     environment:
