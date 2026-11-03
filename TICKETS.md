@@ -138,27 +138,27 @@
 
 ---
 
-## Ticket 7: Deployment and Documentation
+## Ticket 7: Containerization, Cloud Deployment and Documentation
 
 **Estimate:** 2.5 hours  
 **Priority:** High
 
 ### Tasks
-- Configure Docker for Laravel and MySQL.
-- Add GitHub Actions workflow for tests and linting.
-- Create `.env.example` files.
-- Deploy Laravel API and MySQL database.
-- Deploy Next.js frontend.
-- Configure HTTPS and CORS.
-- Write README with setup instructions, hours log, decisions, and deployment details.
+- Configure multi-stage production Dockerfile for Laravel API (PHP 8.4 Apache with prefork MPM).
+- Configure `docker-compose.yml` pulling image `dvish2003/learner-api` with healthchecked MySQL 8.0.
+- Set up GitHub Actions CI/CD workflow (`docker-publish.yml`) to run tests and push container images to Docker Hub.
+- Deploy Laravel REST API and managed MySQL database on **Railway** with health checks (`/api/health`).
+- Deploy Next.js frontend on **Vercel** connected via environment variables (`NEXT_PUBLIC_API_URL`).
+- Configure production CORS and HTTPS security.
+- Write comprehensive `README.md` covering local setup, hours log, architectural decisions & trade-offs, AI tools usage, and deployment steps.
 
 ### Acceptance Criteria
-- Applications run using documented setup instructions.
-- Backend and frontend are accessible through public URLs.
-- Demo learners can log in.
-- API health endpoint returns HTTP 200.
-- Repository contains no committed secrets.
-- README includes AI tools used and future improvements.
+- Docker Compose spins up the entire backend and database with a single command.
+- GitHub Actions pipeline runs automated tests and builds successfully on push.
+- Backend API is live on Railway with `/api/health` returning HTTP 200 JSON confirming database connectivity.
+- Frontend is live on Vercel with full catalogue, search, enrolment, and lesson completion functionality.
+- Demo learners (`amara@example.com`, `nuwan@example.com`) can authenticate in production.
+- Repository contains `.env.example` files without any hardcoded credentials or secrets.
 
 **Dependencies:** Tickets 1–6
 
