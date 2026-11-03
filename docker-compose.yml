@@ -7,7 +7,7 @@ services:
     environment:
       APP_ENV: local
       APP_DEBUG: "true"
-      APP_KEY: base64:YPa+x0yUi4SESDW3J3noi8oPTTlIwnz98bUjK8B/BMM=
+      APP_KEY: ${APP_KEY:-base64:YPa+x0yUi4SESDW3J3noi8oPTTlIwnz98bUjK8B/BMM=}
       APP_URL: http://localhost:8000
       DB_CONNECTION: mysql
       DB_HOST: mysql
